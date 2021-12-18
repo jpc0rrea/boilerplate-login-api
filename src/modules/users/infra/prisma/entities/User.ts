@@ -1,6 +1,7 @@
-import { Exclude } from "class-transformer";
+import { Exclude, Expose } from 'class-transformer';
 
-class User {
+@Expose()
+class ExposedUser {
   id: string;
   name: string;
   email: string;
@@ -8,10 +9,12 @@ class User {
   @Exclude()
   password: string;
 
-  avatarUrl: string;
+  avatarUrl: string | null;
+  permissionLevel: number;
+
   lastLogin: Date;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export default User;
+export default ExposedUser;

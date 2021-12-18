@@ -1,16 +1,17 @@
+import { User } from '@prisma/client';
 import { inject, injectable } from 'tsyringe';
 
 import IHashProvider from '@shared/container/providers/HashProvider/models/IHashProvider';
 import AppError from '@shared/errors/AppError';
 
-import User from '../infra/prisma/entities/User';
-import IUsersRepository from '../repositories/IUsersRepository';
+import IUsersRepository from '../infra/repositories/IUsersRepository';
 
 interface ICreateUserRequest {
   name: string;
   email: string;
   password: string;
   passwordConfirmation: string;
+  permissionLevel?: number;
 }
 
 @injectable()
@@ -28,6 +29,7 @@ class CreateUserService {
     email,
     password,
     passwordConfirmation,
+    permissionLevel,
   }: ICreateUserRequest): Promise<User> {
     if (password !== passwordConfirmation) {
       throw new AppError('Passwords do not match');
@@ -45,6 +47,7 @@ class CreateUserService {
       name,
       email,
       password: hashedPassword,
+      permissionLevel,
     });
 
     return user;

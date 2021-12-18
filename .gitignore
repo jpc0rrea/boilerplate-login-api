@@ -1,3 +1,8 @@
 node_modules
+
 # Keep environment variables out of version control
 .env
+sendgrid.env
+
+# Google Cloud
+layback-cloud-storage-credentials.json
